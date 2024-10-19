@@ -1,0 +1,41 @@
+name: ✨ Feature Request
+description: Propose a new feature!
+labels: ["enhancement"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > [!IMPORTANT]
+        > Please fill in the below details for the feature, this can be a new feature or a refactor of existing behaviour.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Provide a detailed description of the feature, including the problem it solves and/or the benefits it brings.
+      placeholder: Enter the description of the feature
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestions
+    attributes:
+      label: Suggestions
+      description: Have a suggestions on how it should be implemented? Write it here!
+      placeholder: Enter a suggestion
+      value: |
+        _N/A_
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Add any other context about the feature here.
+      placeholder: Enter any additional context or relevant information
+      value: |
+        _N/A_
+    validations:
+      required: false

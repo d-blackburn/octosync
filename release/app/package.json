@@ -1,0 +1,20 @@
+{
+  "name": "octosync",
+  "version": "1.0.0",
+  "description": "Sync labels, issue templates and more across your organisation's repositories with ease.",
+  "license": "MIT",
+  "author": {
+    "name": "Daniel Blackburn",
+    "email": "68713249+d-blackburn@users.noreply.github.com",
+    "url": "https://www.github.com/d-blackburn"
+  },
+  "main": "./dist/main/main.js",
+  "scripts": {
+    "rebuild": "node -r ts-node/register ../../.erb/scripts/electron-rebuild.js",
+    "postinstall": "npm run rebuild && npm run link-modules",
+    "link-modules": "node -r ts-node/register ../../.erb/scripts/link-modules.ts"
+  },
+  "dependencies": {
+    "keytar": "^7.9.0"
+  }
+}

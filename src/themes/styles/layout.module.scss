@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+$borderRadiusNum: 6;
+$borderRadius: $borderRadiusNum+px;
+$font: "Noto Sans", sans-serif;
+
+:export {
+  borderRadiusNum: $borderRadiusNum;
+  borderRadius: $borderRadius;
+  font: $font;
+}
+
+:global {
+  body, #root {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+}
+

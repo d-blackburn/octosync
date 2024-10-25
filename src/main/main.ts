@@ -9,11 +9,25 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  shell,
+  ipcMain,
+  ipcRenderer,
+  safeStorage,
+  IpcRendererEvent,
+} from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import axios from 'axios';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import { DeviceAuthResponse } from '../models/github/DeviceAuthResponse';
+import { retrieveAccessToken } from '../github/retrieveAccessToken';
+import keytar from "keytar";
+
+const clientId = 'Ov23liRR3q1G6ZaAQ8ap';
 
 class AppUpdater {
   constructor() {
@@ -132,6 +146,47 @@ app
       // On macOS it's common to re-create a window in the app when the
       // dock icon is clicked and there are no other windows open.
       if (mainWindow === null) createWindow();
+    });
+
+    ipcMain.on('login-with-github', async (event) => {
+      console.log('Attempting login...');
+
+      // Step 1: Get device and user codes
+      const { data } = await axios.post(
+        'https://github.com/login/device/code',
+        {
+          client_id: clientId,
+        },
+      );
+
+      const searchParams = new URLSearchParams(data);
+      const deviceAuthInfo: DeviceAuthResponse = {
+        user_code: searchParams.get('user_code') ?? '',
+        device_code: searchParams.get('device_code') ?? '',
+        expires_in: parseInt(searchParams.get('expires_in') ?? '0', 10),
+        interval: parseInt(searchParams.get('interval') ?? '0', 10),
+        verification_uri: searchParams.get('verification_uri') ?? '',
+      };
+
+      // Send user_code and verification_uri to React frontend
+      mainWindow?.webContents.send('github-device-auth', deviceAuthInfo);
+
+      ipcMain.emit('get-github-access-token', event, clientId, deviceAuthInfo);
+    });
+
+    ipcMain.on('get-github-access-token', retrieveAccessToken);
+    ipcMain.on('decrypt-github-access-token', async (event) => {
+      const encryptedToken = await keytar.getPassword(
+        'reposync',
+        'github-token',
+      );
+      if (encryptedToken) {
+        event.returnValue = safeStorage.decryptString(
+          Buffer.from(encryptedToken, 'base64'),
+        );
+      }
+
+      event.returnValue = null;
     });
   })
   .catch(console.log);

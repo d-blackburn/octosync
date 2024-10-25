@@ -4,6 +4,7 @@ import { MuiInputBase } from './components/MuiInputBase';
 import { MuiInputLabel } from './components/MuiInputLabel';
 import { MuiButton } from './components/MuiButton';
 import { MuiTextField } from './components/MuiTextField';
+import { MuiPaper } from './components/MuiPaper';
 
 export const layout: ThemeOptions = {
   components: {
@@ -11,6 +12,7 @@ export const layout: ThemeOptions = {
     MuiInputLabel,
     MuiButton,
     MuiTextField,
+    MuiPaper
   },
   typography: {
     fontFamily: shape.font,

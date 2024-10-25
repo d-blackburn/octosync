@@ -5,7 +5,7 @@ const palette: PaletteOptions = {
   default: {
     dark: 'rgb(31, 35, 40)',
     main: 'rgb(31, 35, 40)',
-    light: 'rgb(31, 35, 40)',
+    light: 'rgb(232,232,232)',
     contrastText: 'rgb(31, 35, 40)',
   },
 };

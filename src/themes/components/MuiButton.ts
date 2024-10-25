@@ -21,6 +21,9 @@ export const MuiButton: Components['MuiButton'] = {
         ),
         boxShadow: 'none',
       },
+      '&.Mui-disabled': {
+        border: `1px solid`,
+      },
     }),
   },
 };

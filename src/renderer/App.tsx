@@ -1,19 +1,17 @@
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
+import { MemoryRouter as Router } from 'react-router-dom';
+import '../themes/styles/layout.module.scss';
 import React from 'react';
 import { ThemeProvider } from '@mui/material';
-import Landing from './Landing';
 import { lightTheme } from '../themes/light';
-import { Dashboard } from './Dashboard';
+import { UnauthenticatedApp } from './UnauthenticatedApp';
+import { AuthenticatedApp } from './AuthenticatedApp';
 
 export default function App() {
   return (
     <ThemeProvider theme={lightTheme}>
       <Router>
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
+        <UnauthenticatedApp />
+        <AuthenticatedApp />
       </Router>
     </ThemeProvider>
   );

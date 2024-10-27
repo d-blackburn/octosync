@@ -27,18 +27,12 @@ const LandingPage: React.FC<LandingPageProps> = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    window.electron.ipcRenderer
-      .decryptGitHubToken()
-      .then((token) => navigate('/dashboard'));
-  }, [navigate]);
-
-  useEffect(() => {
     const handleGitHubAuthInfo = (event: any, data: DeviceAuthResponse) => {
       setDeviceAuthResponse(data);
     };
 
     const handleGitHubTokenRetrieved = () => {
-      navigate('/dashboard');
+      navigate('/-/dashboard');
     };
 
     window.electron.ipcRenderer.addGitHubDeviceAuthListener(

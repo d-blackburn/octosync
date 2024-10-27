@@ -3,10 +3,17 @@ import { layout } from './layout';
 
 const palette: PaletteOptions = {
   default: {
-    dark: 'rgb(31, 35, 40)',
-    main: 'rgb(31, 35, 40)',
-    light: 'rgb(232,232,232)',
+    dark: '#d1d9e0',
+    main: '#f6f8fa',
+    light: '#ffffff',
     contrastText: 'rgb(31, 35, 40)',
+  },
+  background: {
+    default: '#FFFFFF',
+    paper: '#f6f8fa',
+  },
+  grey: {
+    '500': '#d1d9e0',
   },
 };
 

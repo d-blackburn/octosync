@@ -10,6 +10,8 @@ import { MuiIconButton } from './components/MuiIconButton';
 import { MuiMenu } from './components/MuiMenu';
 import { MuiContainer } from './components/MuiContainer';
 import { MuiCard } from './components/MuiCard';
+import { MuiList } from './components/MuiList';
+import { MuiListItemButton } from './components/MuiListItemButton';
 
 export const layout: ThemeOptions = {
   components: {
@@ -23,6 +25,8 @@ export const layout: ThemeOptions = {
     MuiIconButton,
     MuiMenu,
     MuiContainer,
+    MuiList,
+    MuiListItemButton,
   },
   typography: {
     fontFamily: shape.font,

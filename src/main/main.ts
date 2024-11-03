@@ -9,15 +9,7 @@
  * `./src/main.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import {
-  app,
-  BrowserWindow,
-  shell,
-  ipcMain,
-  ipcRenderer,
-  safeStorage,
-  IpcRendererEvent,
-} from 'electron';
+import { app, BrowserWindow, shell, ipcMain, safeStorage } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import axios from 'axios';
@@ -25,7 +17,7 @@ import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 import { DeviceAuthResponse } from '../models/github/DeviceAuthResponse';
 import { retrieveAccessToken } from '../github/retrieveAccessToken';
-import keytar from "keytar";
+import keytar from 'keytar';
 
 const clientId = 'Ov23liRR3q1G6ZaAQ8ap';
 
@@ -148,7 +140,7 @@ app
       if (mainWindow === null) createWindow();
     });
 
-    ipcMain.on('login-with-github', async (event) => {
+    ipcMain.on('login-with-github', async () => {
       console.log('Attempting login...');
 
       // Step 1: Get device and user codes
@@ -156,6 +148,7 @@ app
         'https://github.com/login/device/code',
         {
           client_id: clientId,
+          scope: 'repo',
         },
       );
 
@@ -171,13 +164,12 @@ app
       // Send user_code and verification_uri to React frontend
       mainWindow?.webContents.send('github-device-auth', deviceAuthInfo);
 
-      ipcMain.emit('get-github-access-token', event, clientId, deviceAuthInfo);
+      await retrieveAccessToken(clientId, deviceAuthInfo);
+      mainWindow?.webContents.send('github-token-retrieved');
     });
-
-    ipcMain.on('get-github-access-token', retrieveAccessToken);
     ipcMain.on('decrypt-github-access-token', async (event) => {
       const encryptedToken = await keytar.getPassword(
-        'reposync',
+        'octosync',
         'github-token',
       );
       if (encryptedToken) {
@@ -187,6 +179,16 @@ app
       }
 
       event.returnValue = null;
+    });
+
+    ipcMain.on('logout', (event, callback: () => void) => {
+      console.log('Logging out!');
+      keytar
+        .deletePassword('octosync', 'github-token')
+        .then(callback)
+        .catch(() => console.error('Unable to delete token from storage'));
+
+      mainWindow?.webContents.send('github-token-deleted');
     });
   })
   .catch(console.log);

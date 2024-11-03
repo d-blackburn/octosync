@@ -8,9 +8,7 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import { GitHub } from '@mui/icons-material';
 import { useGitHub } from '../../main/github';
-import { User } from '../../github/user';
 import { AccountDrawer } from './AccountDrawer';
 
 import OctoSyncLogo from '../../../assets/icons/favicon-96x96.png';
@@ -18,14 +16,9 @@ import OctoSyncLogo from '../../../assets/icons/favicon-96x96.png';
 export interface AppBarProps {}
 
 const AppContextBar: React.FC<AppBarProps> = () => {
-  const [user, setUser] = useState<User | null>(null);
   const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
 
-  const github = useGitHub();
-
-  useEffect(() => {
-    github?.users.getAuthenticated().then((u) => setUser(u.data));
-  }, [github]);
+  const { user } = useGitHub();
 
   const handleClick = useCallback(() => {
     setDrawerOpen(true);
@@ -33,8 +26,6 @@ const AppContextBar: React.FC<AppBarProps> = () => {
   const handleClose = useCallback(() => {
     setDrawerOpen(false);
   }, []);
-
-  console.log(user);
 
   return (
     <>

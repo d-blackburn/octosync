@@ -10,7 +10,17 @@ $font: "Noto Sans", sans-serif;
   font: $font;
 }
 
-body, #root {
-  height: 100vh;
-  margin: 0;
+:global {
+  body {
+    height: 100vh;
+    margin: 0;
+  }
+
+  #root {
+    min-height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
 }
+

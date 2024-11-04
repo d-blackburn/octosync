@@ -12,6 +12,9 @@ import { MuiContainer } from './components/MuiContainer';
 import { MuiCard } from './components/MuiCard';
 import { MuiList } from './components/MuiList';
 import { MuiListItemButton } from './components/MuiListItemButton';
+import { MuiToggleButton } from './components/MuiToggleButton';
+import { MuiToggleButtonGroup } from './components/MuiToggleButtonGroup';
+import { MuiListItemIcon } from './components/MuiListItemIcon';
 
 export const layout: ThemeOptions = {
   components: {
@@ -26,7 +29,10 @@ export const layout: ThemeOptions = {
     MuiMenu,
     MuiContainer,
     MuiList,
+    MuiListItemIcon,
     MuiListItemButton,
+    MuiToggleButton,
+    MuiToggleButtonGroup,
   },
   typography: {
     fontFamily: shape.font,

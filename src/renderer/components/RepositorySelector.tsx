@@ -1,78 +1,99 @@
-﻿import React, { useCallback, useState } from 'react';
+﻿import React, { useCallback } from 'react';
 import {
-  CardHeader,
+  Avatar,
+  Box,
+  CircularProgress,
   List,
   ListItemButton,
   ListItemText,
   ListSubheader,
   Paper,
-} from '@mui/material';
+  Toolbar, Typography
+} from "@mui/material";
 import { Dictionary } from 'lodash';
 import { Repository } from '../../github/repository';
 
 export interface RepositorySelectorProps {
-  title: string;
-  subtitle: string;
   repositories: Dictionary<Repository[]> | null;
   selected: Repository[];
   onChange: (repositories: Repository[]) => void;
   multi?: boolean | undefined;
+  loading?: boolean | undefined;
 }
 
 const RepositorySelector: React.FC<RepositorySelectorProps> = ({
-  title,
-  subtitle,
   repositories,
   selected,
   onChange,
   multi = false,
+  loading = false,
 }) => {
   const handleClick = useCallback(
     (repository: Repository) => () => {
+      const value = multi ? [...selected, repository] : [repository];
+
       onChange(
         selected?.includes(repository)
           ? selected.filter((r) => r !== repository)
-          : multi
-            ? [...selected, repository]
-            : [repository],
+          : value,
       );
     },
-    [selected, onChange],
+    [multi, selected, onChange],
   );
 
+  console.log(loading)
+
   return (
-    <Paper>
-      <CardHeader title={title} subheader={subtitle} />
-      <List
-        sx={{
-          width: '100%',
-          maxWidth: 360,
-          bgcolor: 'background.paper',
-          position: 'relative',
-          overflow: 'auto',
-          maxHeight: 300,
-          '& ul': { padding: 0 },
-        }}
-        subheader={<li />}
-      >
-        {repositories &&
-          Object.entries(repositories).map(([owner, repos]) => (
-            <li key={owner}>
-              <ul>
-                <ListSubheader>{owner}</ListSubheader>
-                {repos.map((repo: Repository) => (
-                  <ListItemButton
-                    key={repo.full_name}
-                    onClick={handleClick(repo)}
-                    selected={selected.includes(repo)}
-                  >
-                    <ListItemText primary={repo.name} />
-                  </ListItemButton>
-                ))}
-              </ul>
-            </li>
-          ))}
-      </List>
+    <Paper sx={{ height: '100%' }}>
+      {!loading ? (
+        <List
+          sx={{
+            width: '100%',
+            maxWidth: 360,
+            bgcolor: 'background.paper',
+            position: 'relative',
+            overflow: 'auto',
+            maxHeight: 300,
+            '& ul': { padding: 0 },
+          }}
+          subheader={<li />}
+        >
+          {repositories &&
+            Object.entries(repositories).map(([owner, repos]) => (
+              <li key={owner}>
+                <ul>
+                  <ListSubheader>
+                    <Toolbar disableGutters>
+                      <Avatar sx={{ width: 32, height: 32 }}>
+                        <img src={repos[0].owner.avatar_url} height="100%" />
+                      </Avatar>
+                      <Typography marginLeft={1}>{owner}</Typography>
+                    </Toolbar>
+                  </ListSubheader>
+                  {repos.map((repo: Repository) => (
+                    <ListItemButton
+                      key={repo.full_name}
+                      onClick={handleClick(repo)}
+                      selected={selected.includes(repo)}
+                    >
+                      <ListItemText primary={repo.name} />
+                    </ListItemButton>
+                  ))}
+                </ul>
+              </li>
+            ))}
+        </List>
+      ) : (
+        <Box
+          width="100%"
+          height="100%"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <CircularProgress />
+        </Box>
+      )}
     </Paper>
   );
 };

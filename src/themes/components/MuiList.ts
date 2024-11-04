@@ -4,6 +4,7 @@ export const MuiList: Components['MuiList'] = {
   styleOverrides: {
     root: {
       backgroundColor: 'transparent !important',
+      maxWidth: 'unset !important',
     },
   },
 };

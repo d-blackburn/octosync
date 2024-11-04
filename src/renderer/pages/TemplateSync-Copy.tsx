@@ -11,8 +11,6 @@ import _, { Dictionary } from 'lodash';
 import { RepositorySelector } from '../components/RepositorySelector';
 import { Repository } from '../../github/repository';
 import { useGitHub } from '../../main/github';
-import { ProcessWizard } from '../components/ProcessWizard';
-import { templateSyncSteps } from '../features/templateSync/models/templateSyncSteps';
 
 export interface TemplateSyncProps {}
 
@@ -64,8 +62,68 @@ const TemplateSync: React.FC<TemplateSyncProps> = () => {
     : `Waiting for selection`;
 
   return (
-    <Container maxWidth={'md'} sx={{ alignContent: 'center', flexGrow: 1 }}>
-      <ProcessWizard steps={templateSyncSteps} />
+    <Container sx={{ alignContent: 'center', flexGrow: 1 }}>
+      <Grid2 container alignItems="center">
+        <Grid2>
+          <RepositorySelector
+            title="Source"
+            subtitle="Select a repository to copy the labels from"
+            repositories={repositories}
+            selected={sourceRepo}
+            onChange={setSourceRepo}
+          />
+        </Grid2>
+        <Grid2 container size="grow" justifyContent="center" spacing={1}>
+          {progressMessage && (
+            <Grid2 textAlign={'center'}>
+              <Typography variant="body2" color="textSecondary">
+                Copying labels to
+              </Typography>
+              <Typography variant="body1" color="textPrimary" fontWeight="bold">
+                {progressMessage}
+              </Typography>
+            </Grid2>
+          )}
+          <Grid2 size={12}>
+            <LinearProgress
+              variant="determinate"
+              value={
+                inProgress
+                  ? (progressAmount / destinationRepos.length) * 100
+                  : 0
+              }
+              color={
+                destinationRepos.length > 0 &&
+                progressAmount === destinationRepos.length
+                  ? 'success'
+                  : 'primary'
+              }
+            />
+          </Grid2>
+          <Grid2>
+            <Button
+              color="success"
+              disabled={!ready || inProgress}
+              onClick={handleClick}
+              endIcon={
+                inProgress && <CircularProgress color="disabled" size={20} />
+              }
+            >
+              {inProgress ? 'Copying in-progress' : buttonLabel}
+            </Button>
+          </Grid2>
+        </Grid2>
+        <Grid2>
+          <RepositorySelector
+            title="Destination"
+            subtitle="Select all repositories to copy the labels to"
+            multi
+            repositories={repositories}
+            selected={destinationRepos}
+            onChange={setDestinationRepos}
+          />
+        </Grid2>
+      </Grid2>
     </Container>
   );
 };

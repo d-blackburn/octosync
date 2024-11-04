@@ -20,7 +20,7 @@ import {
 import { User } from '../../github/user';
 import { useDrawerOptions } from '../routing/accountDrawerOptions';
 import { useNavigate } from 'react-router-dom';
-import { MenuOption } from '../../models/menus/MenuOption';
+import { MenuOption } from '../../models/menus/menuOption';
 import { ipcMain } from 'electron';
 
 export interface AccountDrawerProps {

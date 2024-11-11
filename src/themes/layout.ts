@@ -15,6 +15,8 @@ import { MuiListItemButton } from './components/MuiListItemButton';
 import { MuiToggleButton } from './components/MuiToggleButton';
 import { MuiToggleButtonGroup } from './components/MuiToggleButtonGroup';
 import { MuiListItemIcon } from './components/MuiListItemIcon';
+import { MuiAccordionSummary } from './components/MuiAccordionSummary';
+import { MuiAccordionDetails } from './components/MuiAccordionDetails';
 
 export const layout: ThemeOptions = {
   components: {
@@ -33,6 +35,8 @@ export const layout: ThemeOptions = {
     MuiListItemButton,
     MuiToggleButton,
     MuiToggleButtonGroup,
+    MuiAccordionSummary,
+    MuiAccordionDetails,
   },
   typography: {
     fontFamily: shape.font,

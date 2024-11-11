@@ -8,8 +8,9 @@ import {
   ListItemText,
   ListSubheader,
   Paper,
-  Toolbar, Typography
-} from "@mui/material";
+  Toolbar,
+  Typography,
+} from '@mui/material';
 import { Dictionary } from 'lodash';
 import { Repository } from '../../github/repository';
 
@@ -40,8 +41,6 @@ const RepositorySelector: React.FC<RepositorySelectorProps> = ({
     },
     [multi, selected, onChange],
   );
-
-  console.log(loading)
 
   return (
     <Paper sx={{ height: '100%' }}>
@@ -74,7 +73,7 @@ const RepositorySelector: React.FC<RepositorySelectorProps> = ({
                     <ListItemButton
                       key={repo.full_name}
                       onClick={handleClick(repo)}
-                      selected={selected.includes(repo)}
+                      selected={selected.some((s) => s.id === repo.id)}
                     >
                       <ListItemText primary={repo.name} />
                     </ListItemButton>

@@ -24,7 +24,6 @@ const DestinationSection: React.FC<DestinationSectionProps> = ({
       window.open(destination, '_blank');
       return;
     }
-
     navigate(destination);
   }, [destination, external, navigate]);
 

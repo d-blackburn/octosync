@@ -2,6 +2,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { User } from '../github/user';
 import { Repository } from '../github/repository';
+import { ProcessData } from '../models/wizards/processData';
+import { ProcessStatus } from '../models/wizards/processStatus';
+import { TemplateSyncData } from '../renderer/features/templateSync/models/templateSyncData';
+import { ProcessState } from "../models/wizards/processState";
 
 export function useGitHub() {
   const [octokit, setOctokit] = useState<Octokit | null>(null);
@@ -54,7 +58,6 @@ export function useGitHub() {
       }
 
       const allRepos = [...userRepos, ...allOrgRepos];
-      console.log('Repositories: ', allRepos);
       return allRepos;
     } catch (error) {
       console.error('Error fetching repositories:', error);
@@ -150,14 +153,19 @@ export function useGitHub() {
     [octokit],
   );
 
-  const copyTemplatesFromRepository = useCallback(
+  const copyContentFromRepository = useCallback(
     async (
-      source: Repository,
-      destinations: Repository[],
+      key: string,
+      templateSyncData: TemplateSyncData,
       branchName: string,
-      callback: (message: string, progress: number) => void,
+      path: string,
+      callback: (state: ProcessState) => void,
     ) => {
       if (octokit === null || user === null) return;
+
+      const { source, destinations } = templateSyncData;
+
+      if (source === null) return;
 
       try {
         // 1. Get the default branch of the source repository
@@ -172,13 +180,18 @@ export function useGitHub() {
           await octokit.rest.repos.getContent({
             owner: source.owner.login,
             repo: source.name,
-            path: '.github/ISSUE_TEMPLATE',
+            path,
           });
 
         // 3. Iterate through the destination repositories
-        let progress = 1;
         for (const destRepo of destinations) {
-          callback(destRepo.full_name, progress);
+          callback({
+            key,
+            id: destRepo.id,
+            status: ProcessStatus.InProgress,
+            message: `Copying ${path} from ${source.full_name}`,
+            url: '',
+          });
 
           try {
             // 4. Get the SHA of the HEAD of the default branch
@@ -196,14 +209,13 @@ export function useGitHub() {
               sha: refData.object.sha,
             });
 
-            // 6.  Get the existing .github/ISSUE_TEMPLATE directory contents (if it exists)
             let existingTemplates;
             try {
               const { data } = await octokit.rest.repos.getContent({
                 owner: destRepo.owner.login,
                 repo: destRepo.name,
-                path: '.github/ISSUE_TEMPLATE',
                 ref: branchName,
+                path,
               });
               existingTemplates = data;
             } catch (error) {
@@ -255,6 +267,18 @@ export function useGitHub() {
               }
             }
 
+            if ('content' in sourceIssueTemplates) {
+              const decodedContent = decodeURIComponent(
+                escape(atob(sourceIssueTemplates.content)),
+              );
+              treeItems.push({
+                path: sourceIssueTemplates.path,
+                mode: '100644', // File mode
+                type: 'blob',
+                content: decodedContent,
+              });
+            }
+
             // 8. Create a tree with the changes
             const { data: newTree } = await octokit.rest.git.createTree({
               owner: destRepo.owner.login,
@@ -267,7 +291,7 @@ export function useGitHub() {
             const { data: newCommit } = await octokit.rest.git.createCommit({
               owner: destRepo.owner.login,
               repo: destRepo.name,
-              message: 'Update issue templates',
+              message: `Copied ${path} from ${source.full_name}`,
               tree: newTree.sha,
               parents: [refData.object.sha],
             });
@@ -280,14 +304,30 @@ export function useGitHub() {
               sha: newCommit.sha,
             });
 
+            callback({
+              key,
+              id: destRepo.id,
+              status: ProcessStatus.InProgress,
+              message: 'Creating Pull Request',
+              url: '',
+            });
+
             // 11. Create a Pull Request for the new branch
             const { data: pullRequest } = await octokit.rest.pulls.create({
               owner: destRepo.owner.login,
               repo: destRepo.name,
-              title: `[OctoSync] - Synchronising Issue Templates from ${source.full_name}`,
+              title: `[OctoSync] - Copied ${path} from ${source.full_name}`,
               head: branchName,
               base: destRepo.default_branch,
-              body: 'This PR updates the issue templates to match the source repository.',
+              body: '',
+            });
+
+            callback({
+              key,
+              id: destRepo.id,
+              status: ProcessStatus.InProgress,
+              message: 'Adding assignee to Pull Request',
+              url: '',
             });
 
             // 12. Assign the authenticated user to the Pull Request
@@ -297,16 +337,23 @@ export function useGitHub() {
               issue_number: pullRequest.number, // Use the pull request number
               assignees: [user.login],
             });
-          } catch (error) {
-            console.error(
-              `Error copying issue templates to ${destRepo.full_name}:`,
-              error,
-            );
+
+            callback({
+              key,
+              id: destRepo.id,
+              status: ProcessStatus.Success,
+              message: 'Completed successfully!',
+              url: '',
+            });
+          } catch (error: any) {
+            callback({
+              key,
+              id: destRepo.id,
+              status: ProcessStatus.Failed,
+              message: error.message,
+              url: '',
+            });
           }
-
-
-
-          progress++;
         }
       } catch (error) {
         console.error('Error copying issue templates:', error);
@@ -318,7 +365,6 @@ export function useGitHub() {
   return {
     user,
     getAllReposForUser,
-    copyLabelsFromRepository,
-    copyTemplatesFromRepository,
+    copyContentFromRepository,
   };
 }

@@ -12,6 +12,7 @@ import { useGitHub } from '../../main/github';
 import { AccountDrawer } from './AccountDrawer';
 
 import OctoSyncLogo from '../../../assets/icons/favicon-96x96.png';
+import { useNavigate } from 'react-router-dom';
 
 export interface AppBarProps {}
 
@@ -19,6 +20,7 @@ const AppContextBar: React.FC<AppBarProps> = () => {
   const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
 
   const { user } = useGitHub();
+  const navigate = useNavigate();
 
   const handleClick = useCallback(() => {
     setDrawerOpen(true);
@@ -26,6 +28,10 @@ const AppContextBar: React.FC<AppBarProps> = () => {
   const handleClose = useCallback(() => {
     setDrawerOpen(false);
   }, []);
+
+  const handleLogoClick = useCallback(() => {
+    navigate('/');
+  }, [navigate]);
 
   return (
     <>
@@ -38,7 +44,7 @@ const AppContextBar: React.FC<AppBarProps> = () => {
             justifyContent="space-between"
           >
             <Grid2 container alignItems="center" spacing={1}>
-              <Grid2>
+              <Grid2 onClick={handleLogoClick}>
                 <img
                   src={OctoSyncLogo}
                   width="36px"

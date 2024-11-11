@@ -28,10 +28,12 @@ const PickDestinationsStep: React.FC<PickDestinationsStepProps> = ({
   useEffect(() => {
     setLoading(true);
     getAllReposForUser()
-      .then((repos) => setRepositories(_.groupBy(repos, 'owner.login')))
+      .then((repos) => {
+        setRepositories(_.groupBy(repos, 'owner.login'));
+      })
       .catch(() => console.error('Unable to retrieve repositories for User'))
       .finally(() => setLoading(false));
-  }, [getAllReposForUser]);
+  }, [getAllReposForUser, formikRef, data]);
 
   return (
     <Formik initialValues={data} onSubmit={onSubmit} innerRef={formikRef}>

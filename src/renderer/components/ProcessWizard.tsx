@@ -8,47 +8,60 @@ import {
   Stepper,
   Typography,
 } from '@mui/material';
-import { templateSyncSteps } from '../features/templateSync/models/templateSyncSteps';
-import { ProcessStep } from '../../models/wizards/processStep';
-import { ChevronLeftOutlined, ChevronRightOutlined } from '@mui/icons-material';
-import { templateSyncDataInitialState } from '../features/templateSync/models/templateSyncData';
 import { FormikProps } from 'formik';
+import {
+  CheckOutlined,
+  ChevronLeftOutlined,
+  ChevronRightOutlined,
+} from '@mui/icons-material';
+import { ProcessStep } from '../../models/wizards/processStep';
+import { templateSyncDataInitialState } from '../features/templateSync/models/templateSyncData';
 
 export interface ProcessWizardProps {
   steps: ProcessStep[];
+  onComplete: (data: any) => void;
 }
 
-const ProcessWizard: React.FC<ProcessWizardProps> = ({ steps }) => {
+const ProcessWizard: React.FC<ProcessWizardProps> = ({ steps, onComplete }) => {
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
 
   const [data, setData] = useState<any>(templateSyncDataInitialState);
 
-  const handleCompletion = useCallback(() => {}, []);
+  const handleCompletion = useCallback(
+    (dataComplete: any) => {
+      onComplete(dataComplete);
+    },
+    [onComplete],
+  );
 
   const handleSubmit = useCallback(
-    (submittedData: any) => {
-      console.log('Step Complete: ', submittedData);
-      setData(submittedData);
+    (updatedData: any) => {
+      setData(updatedData);
       setCurrentStepIndex((prevState) => {
         if (prevState === steps.length - 1) {
-          handleCompletion();
+          handleCompletion(updatedData);
           return prevState;
         }
 
         return prevState + 1;
       });
     },
-    [handleCompletion],
+    [handleCompletion, steps.length],
   );
 
   const formikRef = useRef<FormikProps<any>>(null);
 
-  const validateCurrentStep = useCallback(() => {
-    console.log('Next Pressed!');
+  const handleBackClick = useCallback(() => {
+    setCurrentStepIndex((prevState) => prevState - 1);
+  }, []);
+
+  const handleNextClick = useCallback(() => {
     formikRef.current?.submitForm();
   }, [formikRef]);
 
   const CurrentStep = steps[currentStepIndex].component;
+
+  const lastStep = currentStepIndex === steps.length - 1;
 
   return (
     <Grid2 container height="100%" spacing={2}>
@@ -87,17 +100,22 @@ const ProcessWizard: React.FC<ProcessWizardProps> = ({ steps }) => {
         alignItems="center"
       >
         <Grid2>
-          <Button variant="text" startIcon={<ChevronLeftOutlined />}>
+          <Button
+            variant="text"
+            disabled={currentStepIndex === 0}
+            startIcon={<ChevronLeftOutlined />}
+            onClick={handleBackClick}
+          >
             Back
           </Button>
         </Grid2>
         <Grid2>
           <Button
             color="success"
-            endIcon={<ChevronRightOutlined />}
-            onClick={validateCurrentStep}
+            startIcon={lastStep ? <CheckOutlined /> : <ChevronRightOutlined />}
+            onClick={handleNextClick}
           >
-            Next
+            {lastStep ? 'Confirm' : 'Next'}
           </Button>
         </Grid2>
       </Grid2>

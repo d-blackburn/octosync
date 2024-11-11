@@ -1,4 +1,4 @@
-﻿import { ProcessStep } from '../../../../models/wizards/processStep';
+import { ProcessStep } from '../../../../models/wizards/processStep';
 import { PickSourceStep } from '../components/PickSourceStep';
 import { PickDestinationsStep } from '../components/PickDestinationsStep';
 import { ConfigureOptionsStep } from '../components/ConfigureOptionsStep';

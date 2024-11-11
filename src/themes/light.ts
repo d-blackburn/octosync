@@ -1,4 +1,4 @@
-﻿import { createTheme, PaletteOptions, Theme } from '@mui/material';
+import { createTheme, PaletteOptions, Theme } from '@mui/material';
 import { layout } from './layout';
 
 const palette: PaletteOptions = {

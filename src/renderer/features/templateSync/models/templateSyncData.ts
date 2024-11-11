@@ -1,4 +1,4 @@
-﻿import { Repository } from '../../../../github/repository';
+import { Repository } from '../../../../github/repository';
 
 export type TemplateSyncData = {
   source: Repository | null;

@@ -106,6 +106,7 @@ const configuration: webpack.Configuration = {
      * NODE_ENV should be production so that modules do not perform certain
      * development checks
      */
+    // @ts-ignore
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'production',
       DEBUG_PROD: false,

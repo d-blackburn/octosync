@@ -15,6 +15,13 @@ module.exports = {
     '@typescript-eslint/no-shadow': 'error',
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
+    'no-await-in-loop': 'off',
+    'no-restricted-syntax': 'off',
+    'promise/catch-or-return': 'off',
+    'promise/always-return': 'off',
+    'no-plusplus': 'off',
+    'react/require-default-props': 'off',
+    'import/no-relative-packages': 'off',
   },
   parserOptions: {
     ecmaVersion: 2022,

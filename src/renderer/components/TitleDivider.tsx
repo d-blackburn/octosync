@@ -1,4 +1,4 @@
-﻿import React, { ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { Divider, Grid2, Typography } from '@mui/material';
 
 export interface TitleDividerProps {

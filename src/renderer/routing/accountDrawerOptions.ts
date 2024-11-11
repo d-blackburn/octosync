@@ -1,8 +1,9 @@
-﻿import {
+import {
   AccountCircleOutlined,
-  BugReportOutlined, GitHub,
-  SettingsOutlined
-} from "@mui/icons-material";
+  BugReportOutlined,
+  GitHub,
+  SettingsOutlined,
+} from '@mui/icons-material';
 import { MenuOption } from '../../models/menus/menuOption';
 import { User } from '../../github/user';
 
@@ -26,7 +27,8 @@ export function useDrawerOptions(user: User | null) {
     {
       icon: BugReportOutlined,
       label: 'Report a bug',
-      destination: 'https://github.com/d-blackburn/github-toolkit/issues/new/choose',
+      destination:
+        'https://github.com/d-blackburn/github-toolkit/issues/new/choose',
       external: true,
     },
     {

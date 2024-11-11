@@ -13,11 +13,11 @@ import { app, BrowserWindow, shell, ipcMain, safeStorage } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import axios from 'axios';
+import keytar from 'keytar';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
-import { DeviceAuthResponse } from '../models/github/DeviceAuthResponse';
+import { DeviceAuthResponse } from '../github/deviceAuthResponse';
 import { retrieveAccessToken } from '../github/retrieveAccessToken';
-import keytar from 'keytar';
 
 const clientId = 'Ov23liRR3q1G6ZaAQ8ap';
 
@@ -172,10 +172,14 @@ app
         'octosync',
         'github-token',
       );
-      if (encryptedToken) {
-        event.returnValue = safeStorage.decryptString(
-          Buffer.from(encryptedToken, 'base64'),
-        );
+      if (encryptedToken !== null) {
+        try {
+          event.returnValue = safeStorage.decryptString(
+            Buffer.from(encryptedToken, 'base64'),
+          );
+        } catch {
+          ipcMain.emit('logout');
+        }
       }
 
       event.returnValue = null;

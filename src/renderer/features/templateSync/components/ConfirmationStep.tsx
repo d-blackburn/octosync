@@ -1,32 +1,24 @@
-﻿import React, { RefObject, useEffect, useState } from 'react';
+import React, { RefObject, useEffect, useState } from 'react';
 import { Formik, FormikProps } from 'formik';
 import {
   Avatar,
-  Card,
   CardContent,
   Chip,
   Grid2,
   List,
   ListItem,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
   ListSubheader,
   Paper,
   Toolbar,
   Typography,
-  useTheme,
 } from '@mui/material';
-import {
-  ArrowDownwardOutlined,
-  CheckOutlined,
-  CloseOutlined,
-  KeyboardArrowDownOutlined,
-} from '@mui/icons-material';
+import { CheckOutlined, CloseOutlined } from '@mui/icons-material';
+import _, { Dictionary } from 'lodash';
 import { TemplateSyncData } from '../models/templateSyncData';
 import { TitleDivider } from '../../../components/TitleDivider';
 import { Repository } from '../../../../github/repository';
-import _, { Dictionary } from 'lodash';
 
 export interface ConfirmationStepProps {
   data: TemplateSyncData;
@@ -48,8 +40,6 @@ const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
     setGroupedRepositories(repos);
   }, [data]);
 
-  const theme = useTheme();
-
   return (
     <Formik initialValues={data} onSubmit={onSubmit} innerRef={formikRef}>
       {({ values }) => (
@@ -58,7 +48,11 @@ const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
             <Grid2 container alignItems="center" spacing={1}>
               <Grid2>
                 <Avatar sx={{ width: 32, height: 32 }}>
-                  <img src={values.source?.owner.avatar_url} height="100%" />
+                  <img
+                    src={values.source?.owner.avatar_url}
+                    height="100%"
+                    alt="Profile Avatar"
+                  />
                 </Avatar>
               </Grid2>
               <Grid2 size="grow">
@@ -125,6 +119,7 @@ const ConfirmationStep: React.FC<ConfirmationStepProps> = ({
                               <img
                                 src={repos[0].owner.avatar_url}
                                 height="100%"
+                                alt="Profile Avatar"
                               />
                             </Avatar>
                             <Typography marginLeft={1}>{owner}</Typography>

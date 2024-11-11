@@ -7,7 +7,7 @@ import Landing from './pages/Landing';
 import { Dashboard } from './pages/Dashboard';
 import { LabelSync } from './pages/LabelSync';
 import { UnauthenticatedRoute } from './routing/UnauthenticatedRoute';
-import { TemplateSync } from "./pages/TemplateSync";
+import { TemplateSync } from './pages/TemplateSync';
 
 export default function App() {
   const [isAuthenticated, setAuthenticated] = useState<boolean>(false);

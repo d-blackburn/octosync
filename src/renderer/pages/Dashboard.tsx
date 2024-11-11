@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Container, Grid2 } from '@mui/material';
 import { DestinationSection } from '../components/DestinationSection';
 

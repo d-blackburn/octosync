@@ -1,4 +1,4 @@
-﻿import { alpha, Components, darken } from '@mui/material';
+import { alpha, Components, darken } from '@mui/material';
 import layout from '../styles/layout.module.scss';
 
 export const MuiInputBase: Components['MuiInputBase'] = {

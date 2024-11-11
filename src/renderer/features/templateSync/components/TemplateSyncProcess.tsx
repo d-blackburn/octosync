@@ -1,14 +1,11 @@
-﻿import React, { ReactElement, useCallback, useEffect, useState } from 'react';
+import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Avatar,
   Button,
-  Chip,
   CircularProgress,
-  Collapse,
-  Divider,
   Fade,
   Grid2,
   List,
@@ -17,7 +14,6 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import { TransitionGroup } from 'react-transition-group';
 import {
   CancelOutlined,
   CheckCircleOutlined,
@@ -31,10 +27,10 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { TemplateSyncData } from '../models/templateSyncData';
 import { Repository } from '../../../../github/repository';
-import { useGitHub } from '../../../../main/github';
 import { ProcessData } from '../../../../models/wizards/processData';
 import { ProcessStatus } from '../../../../models/wizards/processStatus';
 import { ProcessState } from '../../../../models/wizards/processState';
+import { useGitHub } from '../../hooks/github';
 
 export interface TemplateSyncProcessProps {
   data: TemplateSyncData;

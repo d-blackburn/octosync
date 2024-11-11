@@ -1,27 +1,21 @@
-﻿import React, { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import {
   Avatar,
   Box,
   Button,
   Divider,
   Drawer,
-  Link,
   ListItemIcon,
   MenuItem,
   MenuList,
   Toolbar,
   Typography,
 } from '@mui/material';
-import {
-  CloseOutlined,
-  CloseRounded,
-  LogoutOutlined,
-} from '@mui/icons-material';
+import { CloseOutlined, LogoutOutlined } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 import { User } from '../../github/user';
 import { useDrawerOptions } from '../routing/accountDrawerOptions';
-import { useNavigate } from 'react-router-dom';
 import { MenuOption } from '../../models/menus/menuOption';
-import { ipcMain } from 'electron';
 
 export interface AccountDrawerProps {
   open: boolean;
@@ -58,7 +52,7 @@ const AccountDrawer: React.FC<AccountDrawerProps> = ({
     <Drawer open={open} onClose={onClose} anchor="right">
       <Toolbar>
         <Avatar sx={{ width: 32, height: 32 }}>
-          <img src={user?.avatar_url} height="100%" />
+          <img src={user?.avatar_url} height="100%" alt="Profile Avatar" />
         </Avatar>
         <Box marginLeft={1} marginRight={2}>
           <Typography variant="body1" color="textPrimary" fontWeight="bold">

@@ -1,4 +1,4 @@
-﻿import { ThemeOptions } from '@mui/material';
+import { ThemeOptions } from '@mui/material';
 import shape from './styles/layout.module.scss';
 import { MuiInputBase } from './components/MuiInputBase';
 import { MuiInputLabel } from './components/MuiInputLabel';

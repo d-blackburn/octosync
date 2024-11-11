@@ -1,4 +1,4 @@
-﻿import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import {
   Button,
   Grid2,
@@ -68,7 +68,7 @@ const ProcessWizard: React.FC<ProcessWizardProps> = ({ steps, onComplete }) => {
       <Grid2 container size={6} justifyContent="flex-end">
         <Grid2 size={8}>
           <Stepper orientation="vertical" activeStep={currentStepIndex}>
-            {steps.map((step, index) => (
+            {steps.map((step) => (
               <Step key={step.label}>
                 <StepLabel>
                   <Typography color="textPrimary" variant="body1">

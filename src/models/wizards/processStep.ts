@@ -1,4 +1,4 @@
-﻿export type ProcessStep = {
+export type ProcessStep = {
   label: string;
   description: string;
   component: any;

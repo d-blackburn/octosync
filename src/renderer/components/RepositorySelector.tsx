@@ -1,4 +1,4 @@
-﻿import React, { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import {
   Avatar,
   Box,
@@ -64,7 +64,11 @@ const RepositorySelector: React.FC<RepositorySelectorProps> = ({
                   <ListSubheader>
                     <Toolbar disableGutters>
                       <Avatar sx={{ width: 32, height: 32 }}>
-                        <img src={repos[0].owner.avatar_url} height="100%" />
+                        <img
+                          src={repos[0].owner.avatar_url}
+                          height="100%"
+                          alt="Profile Avatar"
+                        />
                       </Avatar>
                       <Typography marginLeft={1}>{owner}</Typography>
                     </Toolbar>

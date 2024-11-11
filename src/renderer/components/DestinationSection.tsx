@@ -1,8 +1,8 @@
-﻿import React, { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { Button, Grid2, Typography } from '@mui/material';
 import { ChevronRightOutlined } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import { Section, SectionProps } from './Section';
+import { Section } from './Section';
 
 export interface DestinationSectionProps {
   title: string;

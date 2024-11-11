@@ -1,4 +1,4 @@
-﻿export type MenuOption = {
+export type MenuOption = {
   icon: any;
   label: string;
   destination: string;

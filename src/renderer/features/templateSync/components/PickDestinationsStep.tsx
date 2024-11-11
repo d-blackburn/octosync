@@ -1,11 +1,11 @@
-﻿import React, { RefObject, useEffect, useState } from 'react';
+import React, { RefObject, useEffect, useState } from 'react';
 import { Formik, FormikProps } from 'formik';
 import { Grid2 } from '@mui/material';
+import _, { Dictionary } from 'lodash';
 import { TemplateSyncData } from '../models/templateSyncData';
 import { RepositorySelector } from '../../../components/RepositorySelector';
 import { Repository } from '../../../../github/repository';
-import _, { Dictionary } from 'lodash';
-import { useGitHub } from '../../../../main/github';
+import { useGitHub } from '../../hooks/github';
 
 export interface PickDestinationsStepProps {
   data: TemplateSyncData;

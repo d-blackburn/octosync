@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Card, Grid2, Typography } from '@mui/material';
 import { DefaultProps } from '../../models/components/defaultProps';
 

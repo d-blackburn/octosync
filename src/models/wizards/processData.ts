@@ -1,4 +1,4 @@
-﻿import { ProcessState } from './processState';
+import { ProcessState } from './processState';
 
 export type ProcessData<T> = {
   data: T;

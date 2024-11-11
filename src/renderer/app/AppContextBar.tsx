@@ -1,18 +1,17 @@
-﻿import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import {
   AppBar,
   Avatar,
-  Button,
   Grid2,
   IconButton,
   Toolbar,
   Typography,
 } from '@mui/material';
-import { useGitHub } from '../../main/github';
+import { useNavigate } from 'react-router-dom';
 import { AccountDrawer } from './AccountDrawer';
 
 import OctoSyncLogo from '../../../assets/icons/favicon-96x96.png';
-import { useNavigate } from 'react-router-dom';
+import { useGitHub } from '../features/hooks/github';
 
 export interface AppBarProps {}
 
@@ -49,6 +48,7 @@ const AppContextBar: React.FC<AppBarProps> = () => {
                   src={OctoSyncLogo}
                   width="36px"
                   style={{ display: 'block' }}
+                  alt="OctoSync Logo"
                 />
               </Grid2>
               <Grid2>

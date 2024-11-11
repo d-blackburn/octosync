@@ -1,4 +1,4 @@
-﻿import { darken, Components } from '@mui/material';
+import { darken, Components } from '@mui/material';
 
 export const MuiButton: Components['MuiButton'] = {
   defaultProps: {

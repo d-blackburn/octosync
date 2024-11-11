@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 export interface AuthenticatedRouteProps {

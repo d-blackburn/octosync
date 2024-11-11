@@ -1,4 +1,4 @@
-﻿import { alpha, Components } from '@mui/material';
+import { alpha, Components } from '@mui/material';
 
 export const MuiListItemButton: Components['MuiListItemButton'] = {
   styleOverrides: {

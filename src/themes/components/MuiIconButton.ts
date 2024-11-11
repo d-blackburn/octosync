@@ -1,4 +1,4 @@
-﻿import { Components } from '@mui/material';
+import { Components } from '@mui/material';
 
 export const MuiIconButton: Components['MuiIconButton'] = {
   defaultProps: {
@@ -6,7 +6,7 @@ export const MuiIconButton: Components['MuiIconButton'] = {
   },
   styleOverrides: {
     root: {
-      padding: 0
+      padding: 0,
     },
   },
 };

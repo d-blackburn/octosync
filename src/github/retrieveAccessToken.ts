@@ -1,7 +1,7 @@
-﻿import axios from 'axios';
-import { ipcMain, IpcMainEvent, safeStorage } from 'electron';
-import { DeviceAuthResponse } from '../models/github/DeviceAuthResponse';
+import axios from 'axios';
+import { safeStorage } from 'electron';
 import keytar from 'keytar';
+import { DeviceAuthResponse } from './deviceAuthResponse';
 
 export async function retrieveAccessToken(
   clientId: string,

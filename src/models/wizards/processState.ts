@@ -1,4 +1,4 @@
-﻿import { ProcessStatus } from './processStatus';
+import { ProcessStatus } from './processStatus';
 
 export type ProcessState = {
   id: number;

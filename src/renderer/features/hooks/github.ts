@@ -1,11 +1,10 @@
-﻿import { Octokit } from '@octokit/rest';
 import { useCallback, useEffect, useState } from 'react';
-import { User } from '../github/user';
-import { Repository } from '../github/repository';
-import { ProcessData } from '../models/wizards/processData';
-import { ProcessStatus } from '../models/wizards/processStatus';
-import { TemplateSyncData } from '../renderer/features/templateSync/models/templateSyncData';
-import { ProcessState } from "../models/wizards/processState";
+import { Octokit } from '@octokit/rest';
+import { User } from '../../../github/user';
+import { Repository } from '../../../github/repository';
+import { ProcessStatus } from '../../../models/wizards/processStatus';
+import { ProcessState } from '../../../models/wizards/processState';
+import { TemplateSyncData } from '../templateSync/models/templateSyncData';
 
 export function useGitHub() {
   const [octokit, setOctokit] = useState<Octokit | null>(null);
@@ -57,101 +56,101 @@ export function useGitHub() {
         }
       }
 
-      const allRepos = [...userRepos, ...allOrgRepos];
-      return allRepos;
+      return [...userRepos, ...allOrgRepos] as Repository[];
     } catch (error) {
       console.error('Error fetching repositories:', error);
+      throw error;
     }
   }, [octokit, user]);
 
-  const copyLabelsFromRepository = useCallback(
-    async (
-      source: Repository,
-      destinations: Repository[],
-      callback: (message: string, progress: number) => void,
-    ) => {
-      if (octokit === null) return;
-
-      try {
-        // 1. Get all labels from the source repository
-        const sourceLabels = await octokit.paginate(
-          octokit.rest.issues.listLabelsForRepo,
-          {
-            owner: source.owner.login,
-            repo: source.name,
-          },
-        );
-
-        // Create a set of source label names for efficient lookup
-        const sourceLabelNames = new Set(
-          sourceLabels.map((label) => label.name),
-        );
-
-        // 2. Iterate through the destination repositories
-        let progress = 1;
-        for (const repo of destinations) {
-          callback(repo.full_name, progress);
-
-          // Get all labels from the destination repository
-          const destLabels = await octokit.paginate(
-            octokit.rest.issues.listLabelsForRepo,
-            {
-              owner: repo.owner.login,
-              repo: repo.name,
-            },
-          );
-
-          // 3. Delete labels that don't exist in the source
-          for (const destLabel of destLabels) {
-            if (!sourceLabelNames.has(destLabel.name)) {
-              console.log(`Deleting label: ${destLabel.name}`);
-              await octokit.rest.issues.deleteLabel({
-                owner: repo.owner.login,
-                repo: repo.name,
-                name: destLabel.name,
-              });
-            }
-          }
-
-          // 4. Create/update labels to match the source
-          for (const sourceLabel of sourceLabels) {
-            try {
-              console.log(`Creating/updating label: ${sourceLabel.name}`);
-              await octokit.rest.issues.createLabel({
-                owner: repo.owner.login,
-                repo: repo.name,
-                name: sourceLabel.name,
-                color: sourceLabel.color,
-                description: sourceLabel.description,
-              });
-            } catch (error) {
-              // If the label already exists, update it
-              if (error.status === 422) {
-                console.log(`Updating label: ${sourceLabel.name}`);
-                await octokit.rest.issues.updateLabel({
-                  owner: repo.owner.login,
-                  repo: repo.name,
-                  name: sourceLabel.name,
-                  color: sourceLabel.color,
-                  description: sourceLabel.description,
-                });
-              } else {
-                console.error(
-                  `Error creating/updating label ${sourceLabel.name}:`,
-                  error,
-                );
-              }
-            }
-          }
-
-          progress++;
-        }
-      } catch (error) {
-        console.error('Error syncing labels:', error);
-      }
-    },
-    [octokit],
-  );
+  // const copyLabelsFromRepository = useCallback(
+  //   async (
+  //     source: Repository,
+  //     destinations: Repository[],
+  //     callback: (message: string, progress: number) => void,
+  //   ) => {
+  //     if (octokit === null) return;
+  //
+  //     try {
+  //       // 1. Get all labels from the source repository
+  //       const sourceLabels = await octokit.paginate(
+  //         octokit.rest.issues.listLabelsForRepo,
+  //         {
+  //           owner: source.owner.login,
+  //           repo: source.name,
+  //         },
+  //       );
+  //
+  //       // Create a set of source label names for efficient lookup
+  //       const sourceLabelNames = new Set(
+  //         sourceLabels.map((label) => label.name),
+  //       );
+  //
+  //       // 2. Iterate through the destination repositories
+  //       let progress = 1;
+  //       for (const repo of destinations) {
+  //         callback(repo.full_name, progress);
+  //
+  //         // Get all labels from the destination repository
+  //         const destLabels = await octokit.paginate(
+  //           octokit.rest.issues.listLabelsForRepo,
+  //           {
+  //             owner: repo.owner.login,
+  //             repo: repo.name,
+  //           },
+  //         );
+  //
+  //         // 3. Delete labels that don't exist in the source
+  //         for (const destLabel of destLabels) {
+  //           if (!sourceLabelNames.has(destLabel.name)) {
+  //             console.log(`Deleting label: ${destLabel.name}`);
+  //             await octokit.rest.issues.deleteLabel({
+  //               owner: repo.owner.login,
+  //               repo: repo.name,
+  //               name: destLabel.name,
+  //             });
+  //           }
+  //         }
+  //
+  //         // 4. Create/update labels to match the source
+  //         for (const sourceLabel of sourceLabels) {
+  //           try {
+  //             console.log(`Creating/updating label: ${sourceLabel.name}`);
+  //             await octokit.rest.issues.createLabel({
+  //               owner: repo.owner.login,
+  //               repo: repo.name,
+  //               name: sourceLabel.name,
+  //               color: sourceLabel.color,
+  //               description: sourceLabel.description,
+  //             });
+  //           } catch (error) {
+  //             // If the label already exists, update it
+  //             if (error.status === 422) {
+  //               console.log(`Updating label: ${sourceLabel.name}`);
+  //               await octokit.rest.issues.updateLabel({
+  //                 owner: repo.owner.login,
+  //                 repo: repo.name,
+  //                 name: sourceLabel.name,
+  //                 color: sourceLabel.color,
+  //                 description: sourceLabel.description,
+  //               });
+  //             } else {
+  //               console.error(
+  //                 `Error creating/updating label ${sourceLabel.name}:`,
+  //                 error,
+  //               );
+  //             }
+  //           }
+  //         }
+  //
+  //         progress++;
+  //       }
+  //     } catch (error) {
+  //       console.error('Error syncing labels:', error);
+  //     }
+  //   },
+  //   [octokit],
+  // );
 
   const copyContentFromRepository = useCallback(
     async (
@@ -218,7 +217,7 @@ export function useGitHub() {
                 path,
               });
               existingTemplates = data;
-            } catch (error) {
+            } catch (error: any) {
               // Ignore if the directory doesn't exist
               if (error.status !== 404) {
                 throw error;
@@ -283,7 +282,7 @@ export function useGitHub() {
             const { data: newTree } = await octokit.rest.git.createTree({
               owner: destRepo.owner.login,
               repo: destRepo.name,
-              tree: treeItems,
+              tree: treeItems as any,
               base_tree: refData.object.sha, // Base the tree on the new branch
             });
 

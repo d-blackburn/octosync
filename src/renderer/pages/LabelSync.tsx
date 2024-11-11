@@ -1,4 +1,4 @@
-﻿import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Button,
   CircularProgress,
@@ -10,7 +10,7 @@ import {
 import _, { Dictionary } from 'lodash';
 import { RepositorySelector } from '../components/RepositorySelector';
 import { Repository } from '../../github/repository';
-import { useGitHub } from '../../main/github';
+import { useGitHub } from '../features/hooks/github';
 
 export interface LabelSyncProps {}
 
@@ -21,11 +21,11 @@ const LabelSync: React.FC<LabelSyncProps> = () => {
 
   const [sourceRepo, setSourceRepo] = useState<Repository[]>([]);
   const [destinationRepos, setDestinationRepos] = useState<Repository[]>([]);
-  const [progressMessage, setProgressMessage] = useState<string | null>(null);
-  const [progressAmount, setProgressAmount] = useState<number>(0);
+  const [progressMessage] = useState<string | null>(null);
+  const [progressAmount] = useState<number>(0);
   const [inProgress, setInProgress] = useState<boolean>(false);
 
-  const { getAllReposForUser, copyLabelsFromRepository } = useGitHub();
+  const { getAllReposForUser } = useGitHub();
 
   useEffect(() => {
     getAllReposForUser()
@@ -35,24 +35,24 @@ const LabelSync: React.FC<LabelSyncProps> = () => {
 
   const handleClick = useCallback(() => {
     setInProgress(true);
-    copyLabelsFromRepository(
-      sourceRepo[0],
-      destinationRepos,
-      (message, progress) => {
-        setProgressMessage(message);
-        setProgressAmount(progress);
-      },
-    )
-      .then(() => {
-        setSourceRepo([]);
-        setDestinationRepos([]);
-      })
-      .finally(() => {
-        setInProgress(false);
-        setProgressMessage(null);
-        setProgressAmount(0);
-      });
-  }, [sourceRepo, destinationRepos, copyLabelsFromRepository]);
+    // copyContentFromRepository(
+    //   sourceRepo[0],
+    //   destinationRepos,
+    //   (message, progress) => {
+    //     setProgressMessage(message);
+    //     setProgressAmount(progress);
+    //   },
+    // )
+    //   .then(() => {
+    //     setSourceRepo([]);
+    //     setDestinationRepos([]);
+    //   })
+    //   .finally(() => {
+    //     setInProgress(false);
+    //     setProgressMessage(null);
+    //     setProgressAmount(0);
+    //   });
+  }, []);
 
   const ready = sourceRepo.length === 1 && destinationRepos.length > 0;
 
@@ -65,8 +65,6 @@ const LabelSync: React.FC<LabelSyncProps> = () => {
       <Grid2 container alignItems="center">
         <Grid2>
           <RepositorySelector
-            title="Source"
-            subtitle="Select a repository to copy the labels from"
             repositories={repositories}
             selected={sourceRepo}
             onChange={setSourceRepo}
@@ -74,7 +72,7 @@ const LabelSync: React.FC<LabelSyncProps> = () => {
         </Grid2>
         <Grid2 container size="grow" justifyContent="center" spacing={1}>
           {progressMessage && (
-            <Grid2 textAlign={'center'}>
+            <Grid2 textAlign="center">
               <Typography variant="body2" color="textSecondary">
                 Copying labels to
               </Typography>
@@ -114,8 +112,6 @@ const LabelSync: React.FC<LabelSyncProps> = () => {
         </Grid2>
         <Grid2>
           <RepositorySelector
-            title="Destination"
-            subtitle="Select all repositories to copy the labels to"
             multi
             repositories={repositories}
             selected={destinationRepos}

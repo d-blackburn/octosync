@@ -1,4 +1,4 @@
-﻿import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { QRCodeSVG } from 'qrcode.react';
 import { useNavigate } from 'react-router-dom';
-import { DeviceAuthResponse } from '../../models/github/DeviceAuthResponse';
+import { DeviceAuthResponse } from '../../github/deviceAuthResponse';
 
 import layout from '../../themes/styles/layout.module.scss';
 

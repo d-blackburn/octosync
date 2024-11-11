@@ -1,4 +1,4 @@
-﻿export type DeviceAuthResponse = {
+export type DeviceAuthResponse = {
   device_code: string;
   expires_in: number;
   interval: number;

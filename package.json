@@ -1,6 +1,6 @@
 {
-  "name": "electron-react-boilerplate",
-  "description": "A foundation for scalable desktop apps",
+  "name": "octosync",
+  "description": "Sync labels, issue templates and more across your organisation's repositories with ease.",
   "keywords": [
     "electron",
     "boilerplate",
@@ -12,25 +12,25 @@
     "hot",
     "reload"
   ],
-  "homepage": "https://github.com/electron-react-boilerplate/electron-react-boilerplate#readme",
+  "homepage": "https://github.com/d-blackburn/octosync#readme",
   "bugs": {
-    "url": "https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues"
+    "url": "https://github.com/d-blackburn/octosync/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron-react-boilerplate/electron-react-boilerplate.git"
+    "url": "git+https://github.com/d-blackburn/octosync.git"
   },
   "license": "MIT",
   "author": {
-    "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
-    "url": "https://electron-react-boilerplate.js.org"
+    "name": "Daniel Blackburn",
+    "email": "68713249+d-blackburn@users.noreply.github.com",
+    "url": "https://www.github.com/d-blackburn"
   },
   "contributors": [
     {
-      "name": "Amila Welihinda",
-      "email": "amilajack@gmail.com",
-      "url": "https://github.com/amilajack"
+      "name": "Daniel Blackburn",
+      "email": "68713249+d-blackburn@users.noreply.github.com",
+      "url": "https://www.github.com/d-blackburn"
     }
   ],
   "main": "./.erb/dll/main.bundle.dev.js",
@@ -93,7 +93,7 @@
       "url": "http://localhost/"
     },
     "testPathIgnorePatterns": [
-      "release/app/dist",
+      "release/app",
       ".erb/dll"
     ],
     "transform": {
@@ -123,13 +123,11 @@
   },
   "devDependencies": {
     "@electron/rebuild": "^3.3.0",
-    "@octokit/types": "^13.6.1",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
     "@svgr/webpack": "^8.1.0",
     "@teamsupercell/typings-for-css-modules-loader": "^2.5.2",
     "@testing-library/jest-dom": "^6.1.3",
     "@testing-library/react": "^14.0.0",
-    "@types/electron-store": "^3.2.2",
     "@types/jest": "^29.5.5",
     "@types/lodash": "^4.17.13",
     "@types/node": "20.6.2",
@@ -190,8 +188,8 @@
     "webpack-merge": "^5.9.0"
   },
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.erb.ElectronReact",
+    "productName": "OctoSync",
+    "appId": "org.d-blackburn.octosync",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
     "files": [
@@ -250,8 +248,8 @@
     ],
     "publish": {
       "provider": "github",
-      "owner": "electron-react-boilerplate",
-      "repo": "electron-react-boilerplate"
+      "owner": "d-blackburn",
+      "repo": "octosync"
     }
   },
   "collective": {

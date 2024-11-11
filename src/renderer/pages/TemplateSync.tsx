@@ -1,4 +1,4 @@
-﻿import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Container } from '@mui/material';
 import { ProcessWizard } from '../components/ProcessWizard';
 import { templateSyncSteps } from '../features/templateSync/models/templateSyncSteps';

@@ -1,4 +1,4 @@
-﻿import { PaletteColor, PaletteColorOptions } from '@mui/material';
+import { PaletteColor, PaletteColorOptions } from '@mui/material';
 
 declare module '@mui/material' {
   interface Palette {
@@ -6,6 +6,7 @@ declare module '@mui/material' {
     inherit: PaletteColor;
     disabled: PaletteColor;
   }
+
   interface PaletteOptions {
     default?: PaletteColorOptions;
     inherit?: PaletteColorOptions;
@@ -13,6 +14,48 @@ declare module '@mui/material' {
   }
 
   interface TextFieldPropsColorOverrides
+    extends Record<
+      | 'primary'
+      | 'secondary'
+      | 'error'
+      | 'info'
+      | 'success'
+      | 'warning'
+      | 'default'
+      | 'inherit'
+      | 'disabled',
+      true
+    > {}
+
+  interface FormControlPropsColorOverrides
+    extends Record<
+      | 'primary'
+      | 'secondary'
+      | 'error'
+      | 'info'
+      | 'success'
+      | 'warning'
+      | 'default'
+      | 'inherit'
+      | 'disabled',
+      true
+    > {}
+
+  interface ButtonPropsColorOverrides
+    extends Record<
+      | 'primary'
+      | 'secondary'
+      | 'error'
+      | 'info'
+      | 'success'
+      | 'warning'
+      | 'default'
+      | 'inherit'
+      | 'disabled',
+      true
+    > {}
+
+  interface CircularProgressPropsColorOverrides
     extends Record<
       | 'primary'
       | 'secondary'

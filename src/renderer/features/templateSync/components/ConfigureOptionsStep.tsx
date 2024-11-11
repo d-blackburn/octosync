@@ -1,4 +1,4 @@
-﻿import React, { RefObject } from 'react';
+import React, { RefObject } from 'react';
 import { Formik, FormikProps } from 'formik';
 import { Grid2, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { TemplateSyncData } from '../models/templateSyncData';

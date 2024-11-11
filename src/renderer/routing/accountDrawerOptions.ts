@@ -3,7 +3,7 @@
   BugReportOutlined, GitHub,
   SettingsOutlined
 } from "@mui/icons-material";
-import { MenuOption } from '../../models/menus/MenuOption';
+import { MenuOption } from '../../models/menus/menuOption';
 import { User } from '../../github/user';
 
 export function useDrawerOptions(user: User | null) {

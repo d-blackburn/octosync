@@ -4,7 +4,6 @@ import { DeviceAuthResponse } from '../models/github/DeviceAuthResponse';
 import keytar from 'keytar';
 
 export async function retrieveAccessToken(
-  event: IpcMainEvent,
   clientId: string,
   deviceAuth: DeviceAuthResponse,
 ) {
@@ -28,7 +27,6 @@ export async function retrieveAccessToken(
 
     do {
       response = new URLSearchParams(await requestAccessToken());
-
       await new Promise((resolve) => {
         setTimeout(resolve, deviceAuth.interval * 1000);
       });
@@ -38,17 +36,18 @@ export async function retrieveAccessToken(
     );
 
     if (response.has('access_token')) {
-
       // Used ! as we check if response.has
-      const encryptedToken = safeStorage.encryptString(response.get('access_token')!);
+      const encryptedToken = safeStorage.encryptString(
+        response.get('access_token')!,
+      );
+
+      console.log('Stored GitHub access token: ', encryptedToken);
 
       await keytar.setPassword(
-        'reposync',
+        'octosync',
         'github-token',
         encryptedToken.toString('base64'),
       );
-
-      ipcMain.emit('store-github-access-token');
     } else {
       console.error('Failed to get access token within time limit.');
       // ... send an error message to the renderer process

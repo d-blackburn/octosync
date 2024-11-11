@@ -30,20 +30,24 @@ const electronHandler = {
     },
     loginWithGitHub: () => ipcRenderer.send('login-with-github'),
     addGitHubDeviceAuthListener: (callback: any) =>
-      ipcRenderer.on('github-device-auth', callback),
+      ipcRenderer.addListener('github-device-auth', callback),
     removeGitHubDeviceAuthListener: (callback: any) =>
       ipcRenderer.removeListener('github-device-auth', callback),
     addGitHubTokenRetrievedListener: (callback: any) =>
-      ipcRenderer.on('github-token-retrieved', callback),
+      ipcRenderer.addListener('github-token-retrieved', callback),
     removeGitHubTokenRetrievedListener: (callback: any) =>
       ipcRenderer.removeListener('github-token-retrieved', callback),
+    addGitHubTokenDeletedListener: (callback: any) =>
+      ipcRenderer.addListener('github-token-deleted', callback),
+    removeGitHubTokenDeletedListener: (callback: any) =>
+      ipcRenderer.removeListener('github-token-deleted', callback),
     decryptGitHubToken: async () => {
-      const token: string | null = ipcRenderer.sendSync(
+      const token: string | null = await ipcRenderer.sendSync(
         'decrypt-github-access-token',
       );
-
       return token;
     },
+    logout: () => ipcRenderer.send('logout'),
   },
 };
 

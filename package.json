@@ -112,11 +112,14 @@
     "electron-debug": "^3.2.0",
     "electron-log": "^4.4.8",
     "electron-updater": "^6.1.4",
-    "keytar": "^7.9.0",
+    "formik": "^2.4.6",
+    "lodash": "^4.17.21",
     "qrcode.react": "^4.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.16.0"
+    "react-router-dom": "^6.16.0",
+    "react-transition-group": "^4.4.5",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@electron/rebuild": "^3.3.0",
@@ -128,6 +131,7 @@
     "@testing-library/react": "^14.0.0",
     "@types/electron-store": "^3.2.2",
     "@types/jest": "^29.5.5",
+    "@types/lodash": "^4.17.13",
     "@types/node": "20.6.2",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",

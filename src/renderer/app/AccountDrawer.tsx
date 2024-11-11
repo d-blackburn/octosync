@@ -12,11 +12,16 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import { CloseOutlined, CloseRounded, LogoutOutlined } from "@mui/icons-material";
+import {
+  CloseOutlined,
+  CloseRounded,
+  LogoutOutlined,
+} from '@mui/icons-material';
 import { User } from '../../github/user';
 import { useDrawerOptions } from '../routing/accountDrawerOptions';
 import { useNavigate } from 'react-router-dom';
-import { MenuOption } from '../../models/menus/MenuOption';
+import { MenuOption } from '../../models/menus/menuOption';
+import { ipcMain } from 'electron';
 
 export interface AccountDrawerProps {
   open: boolean;
@@ -33,6 +38,10 @@ const AccountDrawer: React.FC<AccountDrawerProps> = ({
 
   const { accountOptions, footerOptions } = useDrawerOptions(user);
 
+  const handleLogOut = useCallback(() => {
+    window.electron.ipcRenderer.logout();
+  }, []);
+
   const handleOptionClick = useCallback(
     (option: MenuOption) => () => {
       if (option.external) {
@@ -42,7 +51,7 @@ const AccountDrawer: React.FC<AccountDrawerProps> = ({
 
       navigate(option.destination);
     },
-    [navigate, user],
+    [navigate],
   );
 
   return (
@@ -59,7 +68,7 @@ const AccountDrawer: React.FC<AccountDrawerProps> = ({
             {user?.login}
           </Typography>
         </Box>
-        <Button variant="text" onClick={onClose}>
+        <Button variant="text" onClick={handleLogOut}>
           <LogoutOutlined />
         </Button>
         <Button variant="text" onClick={onClose}>

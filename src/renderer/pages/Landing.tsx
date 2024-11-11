@@ -13,9 +13,9 @@ import {
 } from '@mui/material';
 import { QRCodeSVG } from 'qrcode.react';
 import { useNavigate } from 'react-router-dom';
-import { DeviceAuthResponse } from '../models/github/DeviceAuthResponse';
+import { DeviceAuthResponse } from '../../models/github/DeviceAuthResponse';
 
-import layout from '../themes/styles/layout.module.scss';
+import layout from '../../themes/styles/layout.module.scss';
 
 export interface LandingPageProps {}
 
@@ -31,26 +31,14 @@ const LandingPage: React.FC<LandingPageProps> = () => {
       setDeviceAuthResponse(data);
     };
 
-    const handleGitHubTokenRetrieved = () => {
-      navigate('/-/dashboard');
-    };
-
     window.electron.ipcRenderer.addGitHubDeviceAuthListener(
       handleGitHubAuthInfo,
-    );
-
-    window.electron.ipcRenderer.addGitHubTokenRetrievedListener(
-      handleGitHubTokenRetrieved,
     );
 
     // Clean up the listener when the component unmounts
     return () => {
       window.electron.ipcRenderer.removeGitHubDeviceAuthListener(
         handleGitHubAuthInfo,
-      );
-
-      window.electron.ipcRenderer.removeGitHubTokenRetrievedListener(
-        handleGitHubTokenRetrieved,
       );
     };
   }, [navigate]);
@@ -72,7 +60,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
       <Grid2 container spacing={5} justifyContent="center" alignItems="center">
         <Grid2 size={12} textAlign="center">
           <Typography variant="h3" fontWeight="bold">
-            RepoSync
+            OctoSync
           </Typography>
         </Grid2>
         {deviceAuthResponse && (
@@ -139,7 +127,7 @@ const LandingPage: React.FC<LandingPageProps> = () => {
               isWaiting && <CircularProgress size={20} color="disabled" />
             }
           >
-            {isWaiting == false
+            {isWaiting === false
               ? 'Login with GitHub'
               : 'Waiting for authentication response'}
           </Button>

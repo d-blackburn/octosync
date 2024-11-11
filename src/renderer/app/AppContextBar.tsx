@@ -8,24 +8,19 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import { GitHub } from '@mui/icons-material';
 import { useGitHub } from '../../main/github';
-import { User } from '../../github/user';
 import { AccountDrawer } from './AccountDrawer';
 
 import OctoSyncLogo from '../../../assets/icons/favicon-96x96.png';
+import { useNavigate } from 'react-router-dom';
 
 export interface AppBarProps {}
 
 const AppContextBar: React.FC<AppBarProps> = () => {
-  const [user, setUser] = useState<User | null>(null);
   const [drawerOpen, setDrawerOpen] = React.useState<boolean>(false);
 
-  const github = useGitHub();
-
-  useEffect(() => {
-    github?.users.getAuthenticated().then((u) => setUser(u.data));
-  }, [github]);
+  const { user } = useGitHub();
+  const navigate = useNavigate();
 
   const handleClick = useCallback(() => {
     setDrawerOpen(true);
@@ -34,7 +29,9 @@ const AppContextBar: React.FC<AppBarProps> = () => {
     setDrawerOpen(false);
   }, []);
 
-  console.log(user);
+  const handleLogoClick = useCallback(() => {
+    navigate('/');
+  }, [navigate]);
 
   return (
     <>
@@ -47,7 +44,7 @@ const AppContextBar: React.FC<AppBarProps> = () => {
             justifyContent="space-between"
           >
             <Grid2 container alignItems="center" spacing={1}>
-              <Grid2>
+              <Grid2 onClick={handleLogoClick}>
                 <img
                   src={OctoSyncLogo}
                   width="36px"

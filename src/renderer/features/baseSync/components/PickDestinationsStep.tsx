@@ -6,6 +6,7 @@ import { RepositorySelector } from '../../../components/RepositorySelector';
 import { Repository } from '../../../../github/repository';
 import { useGitHub } from '../../../hooks/github';
 import { BaseSyncData } from '../models/baseSyncData';
+import { pickDestinationsStepValidationSchema } from '../schemas/pickDestinationsStepValidationSchema';
 
 export interface PickDestinationsStepProps {
   data: BaseSyncData;
@@ -36,8 +37,13 @@ const PickDestinationsStep: React.FC<PickDestinationsStepProps> = ({
   }, [getAllReposForUser, formikRef, data]);
 
   return (
-    <Formik initialValues={data} onSubmit={onSubmit} innerRef={formikRef}>
-      {({ values, setFieldValue }) => (
+    <Formik
+      initialValues={data}
+      onSubmit={onSubmit}
+      innerRef={formikRef}
+      validationSchema={pickDestinationsStepValidationSchema}
+    >
+      {({ values, setFieldValue, touched, errors }) => (
         <Grid2 container size="grow">
           <Grid2 size={12}>
             <RepositorySelector
@@ -45,6 +51,10 @@ const PickDestinationsStep: React.FC<PickDestinationsStepProps> = ({
               selected={values.destinations}
               onChange={(destinations) =>
                 setFieldValue('destinations', destinations)
+              }
+              error={touched.destinations && Boolean(errors.destinations)}
+              helperText={
+                touched.destinations && (errors.destinations as string)
               }
               loading={loading}
               multi

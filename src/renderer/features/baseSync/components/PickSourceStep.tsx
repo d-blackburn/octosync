@@ -6,6 +6,7 @@ import { RepositorySelector } from '../../../components/RepositorySelector';
 import { Repository } from '../../../../github/repository';
 import { useGitHub } from '../../../hooks/github';
 import { BaseSyncData } from '../models/baseSyncData';
+import { pickSourceStepValidationSchema } from '../schemas/pickSourceStepValidationSchema';
 
 export interface PickSourceStepProps {
   data: BaseSyncData;
@@ -34,14 +35,21 @@ const PickSourceStep: React.FC<PickSourceStepProps> = ({
   }, [getAllReposForUser]);
 
   return (
-    <Formik initialValues={data} onSubmit={onSubmit} innerRef={formikRef}>
-      {({ values, setFieldValue }) => (
+    <Formik
+      initialValues={data}
+      onSubmit={onSubmit}
+      innerRef={formikRef}
+      validationSchema={pickSourceStepValidationSchema}
+    >
+      {({ values, setFieldValue, touched, errors }) => (
         <Grid2 container size="grow">
           <Grid2 size={12}>
             <RepositorySelector
               repositories={repositories}
               selected={values.source ? [values.source] : []}
               onChange={(source) => setFieldValue('source', source[0])}
+              error={touched.source && Boolean(errors.source)}
+              helperText={touched.source && errors.source}
               loading={loading}
             />
           </Grid2>

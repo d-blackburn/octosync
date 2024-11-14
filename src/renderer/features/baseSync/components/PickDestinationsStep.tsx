@@ -2,15 +2,15 @@ import React, { RefObject, useEffect, useState } from 'react';
 import { Formik, FormikProps } from 'formik';
 import { Grid2 } from '@mui/material';
 import _, { Dictionary } from 'lodash';
-import { TemplateSyncData } from '../models/templateSyncData';
 import { RepositorySelector } from '../../../components/RepositorySelector';
 import { Repository } from '../../../../github/repository';
-import { useGitHub } from '../../hooks/github';
+import { useGitHub } from '../../../hooks/github';
+import { BaseSyncData } from '../models/baseSyncData';
 
 export interface PickDestinationsStepProps {
-  data: TemplateSyncData;
-  formikRef: RefObject<FormikProps<TemplateSyncData>>;
-  onSubmit: (data: TemplateSyncData) => void;
+  data: BaseSyncData;
+  formikRef: RefObject<FormikProps<BaseSyncData>>;
+  onSubmit: (data: BaseSyncData) => void;
 }
 
 const PickDestinationsStep: React.FC<PickDestinationsStepProps> = ({
@@ -18,7 +18,7 @@ const PickDestinationsStep: React.FC<PickDestinationsStepProps> = ({
   formikRef,
   onSubmit,
 }) => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [repositories, setRepositories] = useState<Dictionary<
     Repository[]
   > | null>(null);

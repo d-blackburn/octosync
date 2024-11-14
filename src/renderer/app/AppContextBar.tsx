@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { AccountDrawer } from './AccountDrawer';
 
 import OctoSyncLogo from '../../../assets/icons/favicon-96x96.png';
-import { useGitHub } from '../features/hooks/github';
+import { useGitHub } from '../hooks/github';
 
 export interface AppBarProps {}
 

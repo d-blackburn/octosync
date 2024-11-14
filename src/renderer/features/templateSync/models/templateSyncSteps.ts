@@ -1,8 +1,8 @@
 import { ProcessStep } from '../../../../models/wizards/processStep';
-import { PickSourceStep } from '../components/PickSourceStep';
-import { PickDestinationsStep } from '../components/PickDestinationsStep';
 import { ConfigureOptionsStep } from '../components/ConfigureOptionsStep';
 import { ConfirmationStep } from '../components/ConfirmationStep';
+import { PickDestinationsStep } from '../../baseSync/components/PickDestinationsStep';
+import { PickSourceStep } from '../../baseSync/components/PickSourceStep';
 
 export const templateSyncSteps: ProcessStep[] = [
   {

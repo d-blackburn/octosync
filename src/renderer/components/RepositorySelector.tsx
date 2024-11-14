@@ -42,62 +42,60 @@ const RepositorySelector: React.FC<RepositorySelectorProps> = ({
     [multi, selected, onChange],
   );
 
-  return (
+  return !loading ? (
     <Paper sx={{ height: '100%' }}>
-      {!loading ? (
-        <List
-          sx={{
-            width: '100%',
-            maxWidth: 360,
-            bgcolor: 'background.paper',
-            position: 'relative',
-            overflow: 'auto',
-            maxHeight: 300,
-            '& ul': { padding: 0 },
-          }}
-          subheader={<li />}
-        >
-          {repositories &&
-            Object.entries(repositories).map(([owner, repos]) => (
-              <li key={owner}>
-                <ul>
-                  <ListSubheader>
-                    <Toolbar disableGutters>
-                      <Avatar sx={{ width: 32, height: 32 }}>
-                        <img
-                          src={repos[0].owner.avatar_url}
-                          height="100%"
-                          alt="Profile Avatar"
-                        />
-                      </Avatar>
-                      <Typography marginLeft={1}>{owner}</Typography>
-                    </Toolbar>
-                  </ListSubheader>
-                  {repos.map((repo: Repository) => (
-                    <ListItemButton
-                      key={repo.full_name}
-                      onClick={handleClick(repo)}
-                      selected={selected.some((s) => s.id === repo.id)}
-                    >
-                      <ListItemText primary={repo.name} />
-                    </ListItemButton>
-                  ))}
-                </ul>
-              </li>
-            ))}
-        </List>
-      ) : (
-        <Box
-          width="100%"
-          height="100%"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <CircularProgress />
-        </Box>
-      )}
+      <List
+        sx={{
+          width: '100%',
+          maxWidth: 360,
+          bgcolor: 'background.paper',
+          position: 'relative',
+          overflow: 'auto',
+          maxHeight: 300,
+          '& ul': { padding: 0 },
+        }}
+        subheader={<li />}
+      >
+        {repositories &&
+          Object.entries(repositories).map(([owner, repos]) => (
+            <li key={owner}>
+              <ul>
+                <ListSubheader>
+                  <Toolbar disableGutters>
+                    <Avatar sx={{ width: 32, height: 32 }}>
+                      <img
+                        src={repos[0].owner.avatar_url}
+                        height="100%"
+                        alt="Profile Avatar"
+                      />
+                    </Avatar>
+                    <Typography marginLeft={1}>{owner}</Typography>
+                  </Toolbar>
+                </ListSubheader>
+                {repos.map((repo: Repository) => (
+                  <ListItemButton
+                    key={repo.full_name}
+                    onClick={handleClick(repo)}
+                    selected={selected.some((s) => s.id === repo.id)}
+                  >
+                    <ListItemText primary={repo.name} />
+                  </ListItemButton>
+                ))}
+              </ul>
+            </li>
+          ))}
+      </List>
     </Paper>
+  ) : (
+    <Box
+      width="100%"
+      height="100%"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <CircularProgress />
+    </Box>
   );
 };
 export { RepositorySelector };

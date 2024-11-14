@@ -1,15 +1,15 @@
-import { Repository } from '../../../../github/repository';
+import {
+  BaseSyncData,
+  baseSyncDataInitialState,
+} from '../../baseSync/models/baseSyncData';
 
-export type TemplateSyncData = {
-  source: Repository | null;
-  destinations: Repository[];
+export type TemplateSyncData = BaseSyncData & {
   syncIssueTemplates: boolean;
   syncPullRequestTemplates: boolean;
 };
 
 export const templateSyncDataInitialState: TemplateSyncData = {
-  source: null,
-  destinations: [],
+  ...baseSyncDataInitialState,
   syncIssueTemplates: false,
   syncPullRequestTemplates: false,
 };

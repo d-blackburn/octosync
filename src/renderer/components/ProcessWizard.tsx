@@ -64,7 +64,7 @@ const ProcessWizard: React.FC<ProcessWizardProps> = ({ steps, onComplete }) => {
   const lastStep = currentStepIndex === steps.length - 1;
 
   return (
-    <Grid2 container height="100%" spacing={2}>
+    <Grid2 container height="100%" spacing={2} alignItems="center">
       <Grid2 container size={6} justifyContent="flex-end">
         <Grid2 size={8}>
           <Stepper orientation="vertical" activeStep={currentStepIndex}>
@@ -85,7 +85,7 @@ const ProcessWizard: React.FC<ProcessWizardProps> = ({ steps, onComplete }) => {
           </Stepper>
         </Grid2>
       </Grid2>
-      <Grid2 container size="grow">
+      <Grid2 container size="grow" height="100%">
         <CurrentStep
           data={data}
           onSubmit={handleSubmit}

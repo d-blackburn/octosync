@@ -29,15 +29,15 @@ const DestinationSection: React.FC<DestinationSectionProps> = ({
 
   return (
     <Section title={title}>
+      <Grid2 size="grow">
+        <Typography variant="body2" color="textSecondary">
+          {description}
+        </Typography>
+      </Grid2>
       <Grid2 container justifyContent="right" spacing={1}>
-        <Grid2 size={12}>
-          <Typography variant="body2" color="textSecondary">
-            {description}
-          </Typography>
-        </Grid2>
         <Grid2>
           <Button onClick={handleClick} endIcon={<ChevronRightOutlined />}>
-            See more
+            Get started
           </Button>
         </Grid2>
       </Grid2>

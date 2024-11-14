@@ -30,7 +30,7 @@ import { Repository } from '../../../../github/repository';
 import { ProcessData } from '../../../../models/wizards/processData';
 import { ProcessStatus } from '../../../../models/wizards/processStatus';
 import { ProcessState } from '../../../../models/wizards/processState';
-import { useGitHub } from '../../hooks/github';
+import { useGitHub } from '../../../hooks/github';
 
 export interface TemplateSyncProcessProps {
   data: TemplateSyncData;

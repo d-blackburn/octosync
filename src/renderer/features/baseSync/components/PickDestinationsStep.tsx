@@ -30,7 +30,12 @@ const PickDestinationsStep: React.FC<PickDestinationsStepProps> = ({
     setLoading(true);
     getAllReposForUser()
       .then((repos) => {
-        setRepositories(_.groupBy(repos, 'owner.login'));
+        setRepositories(
+          _.groupBy(
+            repos.filter((r) => r.id !== data.source?.id),
+            'owner.login',
+          ),
+        );
       })
       .catch(() => console.error('Unable to retrieve repositories for User'))
       .finally(() => setLoading(false));

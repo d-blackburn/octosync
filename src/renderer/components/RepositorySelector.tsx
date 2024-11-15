@@ -41,7 +41,7 @@ const RepositorySelector: React.FC<RepositorySelectorProps> = ({
       const value = multi ? [...selected, repository] : [repository];
 
       onChange(
-        selected?.includes(repository)
+        selected?.map((r) => r.id).includes(repository.id)
           ? selected.filter((r) => r !== repository)
           : value,
       );

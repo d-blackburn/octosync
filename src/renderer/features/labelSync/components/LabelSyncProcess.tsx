@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Avatar,
   Button,
@@ -39,8 +39,6 @@ const LabelSyncProcess: React.FC<TemplateSyncProcessProps> = ({
   const [processes, setProcesses] = useState<ProcessData<Repository>[]>([]);
   const [inProgress, setInProgress] = useState<boolean>(false);
 
-  const listRef = useRef<>(null);
-
   const { copyContentFromRepository, copyLabelsFromRepository } = useGitHub();
   const navigate = useNavigate();
 
@@ -73,10 +71,7 @@ const LabelSyncProcess: React.FC<TemplateSyncProcessProps> = ({
       data.source,
       data.destinations,
       handleProcessUpdate,
-    )
-      .then()
-      .catch()
-      .finally(() => setInProgress(false));
+    ).finally(() => setInProgress(false));
   }, [
     data,
     copyContentFromRepository,
@@ -104,7 +99,7 @@ const LabelSyncProcess: React.FC<TemplateSyncProcessProps> = ({
   return (
     <Grid2 container spacing={2}>
       <Grid2 size={12}>
-        <List ref={listRef} sx={{ maxHeight: '350px', overflowY: 'auto' }}>
+        <List sx={{ maxHeight: '350px', overflowY: 'auto' }}>
           <TransitionGroup>
             {processes
               .filter((p) => p.states.length > 0)

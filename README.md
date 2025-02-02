@@ -43,10 +43,18 @@ Not support yet
 
 ## Usage
 
-1. **Authentication:** Connect OctoSync to your GitHub account.
-2. **Select Repositories:** Choose the repositories you want to manage.
-3. **Automate:** Use the intuitive interface to sync templates or labels across your selected repositories.
+1. Connect OctoSync to your GitHub account.
+2. Choose the organisations you want to use on OctoSync.
+3. Profit... or just use the app (it's pretty simple right now)
+
+## Screenshots
+
+![Template Sync Selection](assets/screenshots/issue-template-sync.png)
+![Template Sync Confirmation](assets/screenshots/issue-template-sync-confirmation.png)
+![Label Sync Confirmation](assets/screenshots/label-sync-confirmation.png)
 
 ## Contributing
 
-Contributions are welcome! Feel free to open issues or submit pull requests.
+Feel free to submit fork off this repository and implement your own features that make your life
+easier and minimise the faff you have to deal with. Alternatively, if you have a good idea for
+a feature but don't have the time to implement it - make an issue!

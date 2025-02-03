@@ -119,7 +119,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0",
     "react-transition-group": "^4.4.5",
-    "yup": "^1.4.0"
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@electron/rebuild": "^3.3.0",

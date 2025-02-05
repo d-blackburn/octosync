@@ -82,12 +82,14 @@ const AppContextBar: React.FC<AppBarProps> = () => {
                         {pageTitles[to]}
                       </Typography>
                     ) : (
+                      // eslint-disable-next-line jsx-a11y/anchor-is-valid
                       <Link
                         color="textSecondary"
                         underline="hover"
-                        href={to}
+                        onClick={() => navigate(to)}
                         key={to}
                         variant="h6"
+                        sx={{ cursor: 'pointer' }}
                       >
                         {pageTitles[to]}
                       </Link>

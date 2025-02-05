@@ -30,7 +30,7 @@ const AccountDrawer: React.FC<AccountDrawerProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  const { accountOptions, footerOptions } = useDrawerOptions(user);
+  const { accountOptions, footerOptions } = useDrawerOptions();
 
   const handleLogOut = useCallback(() => {
     window.electron.ipcRenderer.logout();

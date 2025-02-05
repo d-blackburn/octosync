@@ -14,6 +14,8 @@ $font: "Noto Sans", sans-serif;
   body, #root {
     height: 100vh;
     margin: 0;
+    display: flex;
+    flex-direction: column;
   }
 }
 

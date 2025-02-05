@@ -11,7 +11,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
         <Grid2 size={4}>
           <DestinationSection
             title="Template Sync"
-            destination="/-/synchronise/templates"
+            destination="/-/templates"
             description="Easily synchronise your Issue/ Pull Request templates for your repositories."
             external={false}
           />
@@ -19,7 +19,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
         <Grid2 size={4}>
           <DestinationSection
             title="Label Sync"
-            destination="/-/synchronise/labels"
+            destination="/-/labels"
             description="Easily synchronise your labels across your repositories."
             external={false}
           />

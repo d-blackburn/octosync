@@ -61,10 +61,8 @@ export default function App() {
             element={<AuthenticatedRoute isAuthenticated={isAuthenticated} />}
           >
             <Route index element={<Dashboard />} />
-            <Route path="synchronise">
-              <Route path="labels" element={<LabelSync />} />
-              <Route path="templates" element={<TemplateSync />} />
-            </Route>
+            <Route path="labels" element={<LabelSync />} />
+            <Route path="templates" element={<TemplateSync />} />
           </Route>
         </Routes>
       </Router>

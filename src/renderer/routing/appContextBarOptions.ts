@@ -3,8 +3,8 @@ export type AppPageTitle = {
 };
 
 export const pageTitles: AppPageTitle = {
-  '/-': 'Dashboard',
+  '/-': 'Home',
   '/-/synchronise': 'Synchronise',
-  '/-/synchronise/labels': 'Labels',
-  '/-/synchronise/templates': 'Templates',
+  '/-/labels': 'Labels',
+  '/-/templates': 'Templates',
 };

@@ -1,5 +1,5 @@
 import { ThemeOptions } from '@mui/material';
-import shape from './styles/layout.module.scss';
+import * as shape from './styles/layout.module.scss';
 import { MuiInputBase } from './components/MuiInputBase';
 import { MuiInputLabel } from './components/MuiInputLabel';
 import { MuiButton } from './components/MuiButton';

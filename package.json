@@ -101,7 +101,6 @@
     }
   },
   "dependencies": {
-    "@electron/github-app-auth": "^2.2.1",
     "@electron/notarize": "^2.5.0",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",

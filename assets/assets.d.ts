@@ -21,15 +21,15 @@ declare module '*.jpg' {
 
 declare module '*.scss' {
   const content: Styles;
-  export default content;
+  export = content;
 }
 
 declare module '*.sass' {
   const content: Styles;
-  export default content;
+  export = content;
 }
 
 declare module '*.css' {
   const content: Styles;
-  export default content;
+  export = content;
 }

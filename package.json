@@ -106,7 +106,7 @@
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^6.1.5",
     "@mui/material": "^6.4.2",
-    "@octokit/rest": "^21.0.2",
+    "@octokit/rest": "^21.1.1",
     "axios": "^1.7.7",
     "electron-debug": "^3.2.0",
     "electron-log": "^5.3.0",
